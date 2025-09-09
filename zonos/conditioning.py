@@ -6,6 +6,7 @@ import torch.nn as nn
 
 from zonos.config import PrefixConditionerConfig
 from zonos.utils import DEFAULT_DEVICE
+from phonikud import phonemize
 
 
 class Conditioner(nn.Module):
@@ -231,6 +232,7 @@ class EspeakPhonemeConditioner(Conditioner):
         if "he" in languages:
             phonemes = []
             for text, language in zip(texts, languages):
+                text = phonemize(text)
                 phonemes.append(text)
         else:
             phonemes = phonemize(texts, languages)
