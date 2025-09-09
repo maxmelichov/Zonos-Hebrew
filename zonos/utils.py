@@ -27,26 +27,6 @@ def pad_weight_(w: nn.Embedding | nn.Linear, multiple: int):
         raise ValueError(f"Unsupported weight type: {type(w)}")
 
 
-def pad_weight_train_(w: nn.Embedding | nn.Linear, multiple: int):
-    """Training-time padding behavior.
-
-    Goal: keep vocabulary/head sizes stable and aligned with inference's current expectation (1026),
-    avoiding incremental growth. We therefore:
-      - Do nothing for embeddings (they are already 1026 in this codebase)
-      - For linear heads: if out_features is 1025, pad exactly one row to reach 1026; otherwise no-op
-    """
-    if isinstance(w, nn.Embedding):
-        return
-    if isinstance(w, nn.Linear):
-        current_out = w.weight.shape[0]
-        if current_out == 1025:
-            # Pad exactly one row to match 1026 expected size
-            w.weight.data = F.pad(w.weight.data, (0, 0, 0, 1))
-            w.out_features, w.in_features = w.weight.shape
-        return
-    raise ValueError(f"Unsupported weight type: {type(w)}")
-
-
 def get_device() -> torch.device:
     if torch.cuda.is_available():
         return torch.device(torch.cuda.current_device())
