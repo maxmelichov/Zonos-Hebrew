@@ -7,8 +7,6 @@ from zonos.utils import DEFAULT_DEVICE as device
 
 model = Zonos.from_pretrained("notmax123/Zonos-Hebrew", device=device)
 
-
-
 wav, sampling_rate = torchaudio.load("assets/exampleaudio.mp3")
 speaker = model.make_speaker_embedding(wav, sampling_rate)
 
