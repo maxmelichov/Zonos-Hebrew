@@ -12,7 +12,7 @@ speaker = model.make_speaker_embedding(wav, sampling_rate)
 
 torch.manual_seed(421)
 
-cond_dict = make_cond_dict(text="שלום עולם", speaker=speaker, language="he")
+cond_dict = make_cond_dict(text=" ירושלים יום טוב", speaker=speaker, language="he")
 conditioning = model.prepare_conditioning(cond_dict)
 
 codes = model.generate(conditioning)

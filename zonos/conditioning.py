@@ -6,7 +6,9 @@ import torch.nn as nn
 
 from zonos.config import PrefixConditionerConfig
 from zonos.utils import DEFAULT_DEVICE
+from phonikud_onnx import Phonikud
 from phonikud import phonemize
+from huggingface_hub import hf_hub_download
 
 
 class Conditioner(nn.Module):
@@ -205,7 +207,7 @@ def get_backend(language: str) -> "EspeakBackend":
     return backend
 
 
-def phonemize(texts: list[str], languages: list[str]) -> list[str]:
+def phonemize_not_he(texts: list[str], languages: list[str]) -> list[str]:
     texts = clean(texts, languages)
 
     batch_phonemes = []
@@ -218,9 +220,18 @@ def phonemize(texts: list[str], languages: list[str]) -> list[str]:
 
 
 class EspeakPhonemeConditioner(Conditioner):
-    def __init__(self, output_dim: int, **kwargs):
+    def __init__(self, output_dim: int, revision: str = "main", **kwargs):
         super().__init__(output_dim, **kwargs)
         self.phoneme_embedder = nn.Embedding(len(SPECIAL_TOKEN_IDS) + len(symbols), output_dim)
+        phonikud_path = self.download_phonikud(revision)
+        self.phonikud = Phonikud(phonikud_path)
+    
+    def download_phonikud(self, revision: str):
+        return hf_hub_download(
+            repo_id="notmax123/Zonos-Hebrew",
+            filename="phonikud-1.0.onnx",
+            revision=revision
+        )
 
     def apply_cond(self, texts: list[str], languages: list[str]) -> torch.Tensor:
         """
@@ -229,13 +240,16 @@ class EspeakPhonemeConditioner(Conditioner):
             languages: ISO 639-1 -or otherwise eSpeak compatible- language code
         """
         device = self.phoneme_embedder.weight.device
+
         if "he" in languages:
             phonemes = []
-            for text, language in zip(texts, languages):
-                text = phonemize(text)
+            for text in texts:
+                text = self.phonikud.add_diacritics(text)
+                text = phonemize(text)  # your Hebrew phonemizer
                 phonemes.append(text)
         else:
-            phonemes = phonemize(texts, languages)
+            phonemes = phonemize_not_he(texts, languages)  # generic phonemizer
+
         phoneme_ids, _ = tokenize_phonemes(phonemes)
         phoneme_embeds = self.phoneme_embedder(phoneme_ids.to(device))
 

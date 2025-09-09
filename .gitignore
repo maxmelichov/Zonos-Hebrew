@@ -16,3 +16,4 @@ venv/
 saspeech_manual/
 train.py
 checkpoints/
+pt_safetendor.py
