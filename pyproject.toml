@@ -19,6 +19,8 @@ dependencies = [
     "soundfile>=0.13.1",
     "huggingface-hub>=0.28.1",
     "gradio>=5.15.0",
+    "phonikud>=0.4.1",
+    "phonikud-onnx>=1.0.6",
 ]
 
 # These are technically optional, but mamba-ssm is required to run hybrid models.
