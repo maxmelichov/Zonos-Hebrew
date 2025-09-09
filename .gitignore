@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# Misc.
+.ipynb_checkpoints/
+
+venv/
+saspeech_manual/
+train.py
+checkpoints/
