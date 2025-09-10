@@ -232,6 +232,16 @@ class EspeakPhonemeConditioner(Conditioner):
             filename="phonikud-1.0.onnx",
             revision=revision
         )
+    @staticmethod
+    def _contains_hebrew_letters(s: str) -> bool:
+                return any("\u0590" <= ch <= "\u05FF" for ch in s)
+    @staticmethod
+    def _contains_hebrew_niqqud(s: str) -> bool:
+        return any("\u0591" <= ch <= "\u05C7" for ch in s)
+
+    @staticmethod
+    def _looks_like_prephonemized_ipa(s: str) -> bool:
+        return (not EspeakPhonemeConditioner._contains_hebrew_letters(s)) and any((ch in set(_letters_ipa)) for ch in s)
 
     def apply_cond(self, texts: list[str], languages: list[str]) -> torch.Tensor:
         """
@@ -244,8 +254,18 @@ class EspeakPhonemeConditioner(Conditioner):
         if "he" in languages:
             phonemes = []
             for text in texts:
-                text = self.phonikud.add_diacritics(text)
-                text = phonemize(text)  # your Hebrew phonemizer
+                # If already IPA-like (e.g., "hˈu tsafˈa …"), just append it
+                if self._looks_like_prephonemized_ipa(text):
+                    phonemes.append(text)
+                    continue
+
+                # If Hebrew niqqud already present, skip adding diacritics
+                if self._contains_hebrew_niqqud(text):
+                    diacritized = text
+                else:
+                    diacritized = self.phonikud.add_diacritics(text)
+
+                text = phonemize(diacritized)  # Hebrew phonemizer
                 phonemes.append(text)
         else:
             phonemes = phonemize_not_he(texts, languages)  # generic phonemizer
