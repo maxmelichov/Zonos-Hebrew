@@ -3,7 +3,7 @@ import torchaudio
 import gradio as gr
 from os import getenv
 
-from zonos.model import Zonos, DEFAULT_BACKBONE_CLS as ZonosBackbone
+from zonos.model import Zonos
 from zonos.conditioning import make_cond_dict, supported_language_codes
 from zonos.utils import DEFAULT_DEVICE as device
 
@@ -204,17 +204,7 @@ def generate_audio(
 
 
 def build_interface():
-    supported_models = []
-    if "transformer" in ZonosBackbone.supported_architectures:
-        supported_models.append("Zyphra/Zonos-v0.1-transformer")
-
-    if "hybrid" in ZonosBackbone.supported_architectures:
-        supported_models.append("Zyphra/Zonos-v0.1-hybrid")
-    else:
-        print(
-            "| The current ZonosBackbone does not support the hybrid architecture, meaning only the transformer model will be available in the model selector.\n"
-            "| This probably means the mamba-ssm library has not been installed."
-        )
+    supported_models = ["notmax123/Zonos-Hebrew"]
 
     with gr.Blocks() as demo:
         with gr.Row():
@@ -233,7 +223,7 @@ def build_interface():
                 )
                 language = gr.Dropdown(
                     choices=supported_language_codes,
-                    value="en-us",
+                    value="he",
                     label="Language Code",
                     info="Select a language code.",
                 )

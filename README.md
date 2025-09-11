@@ -1,4 +1,4 @@
-# Zonos-v0.1
+# Zonos-v0.1-Hebrew
 
 <div align="center">
 <img src="assets/ZonosHeader.png" 
@@ -23,6 +23,32 @@ Our model enables highly natural speech generation from text prompts when given 
 ##### For more details and speech samples, check out our blog [here](https://www.zyphra.com/post/beta-release-of-zonos-v0-1)
 
 ##### We also have a hosted version available at [playground.zyphra.com/audio](https://playground.zyphra.com/audio)
+
+## 🤗 Hugging Face Resources
+
+### Model Weights
+The Hebrew-trained model weights are available on Hugging Face: [**notmax123/Zonos-Hebrew**](https://huggingface.co/notmax123/Zonos-Hebrew)
+
+To use the Hebrew model weights in your code, simply replace the model loading line:
+
+```python
+# Instead of the original Zyphra models:
+# model = Zonos.from_pretrained("Zyphra/Zonos-v0.1-transformer", device=device)
+
+# Use the Hebrew-trained model:
+model = Zonos.from_pretrained("notmax123/Zonos-Hebrew", device=device)
+```
+
+### Online Demo
+Try the model instantly in your browser without any installation: [**🤗 Zonos-Hebrew Space**](https://huggingface.co/spaces/notmax123/Zonos-Hebrew)
+
+The Hugging Face Space provides an easy-to-use web interface where you can:
+- Input Hebrew text for speech synthesis
+- Upload reference audio for voice cloning
+- Adjust various parameters like speaking rate and emotions
+- Download the generated audio directly
+
+Perfect for quick experiments or sharing with others who want to try the model without technical setup!
 
 ---
 
