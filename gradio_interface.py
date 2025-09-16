@@ -217,7 +217,7 @@ def build_interface():
                 )
                 text = gr.Textbox(
                     label="Text to Synthesize",
-                    value="Zonos uses eSpeak for text to phoneme conversion!",
+                    value="ברוכים הבאים",
                     lines=4,
                     max_length=500,  # approximately
                 )

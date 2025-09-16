@@ -75,6 +75,8 @@ class Zonos(nn.Module):
             # Preferentially route to pure torch backbone for increased performance and lower latency.
             if is_transformer and "torch" in BACKBONES:
                 backbone_cls = BACKBONES["torch"]
+            elif (not is_transformer) and ("mamba_ssm" in BACKBONES):
+                backbone_cls = BACKBONES["mamba_ssm"]
 
         model = cls(config, backbone_cls).to(device, torch.bfloat16)
         model.autoencoder.dac.to(device)
