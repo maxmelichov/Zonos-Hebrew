@@ -217,7 +217,7 @@ def build_interface():
                 )
                 text = gr.Textbox(
                     label="Text to Synthesize",
-                    value="ברוכים הבאים",
+                    value="שלום לכולם",
                     lines=4,
                     max_length=500,  # approximately
                 )
