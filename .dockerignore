@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual envs
+.venv/
+venv/
+
+# VCS/CI
+.git/
+.github/
+.gitignore
+
+# Tool caches
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.cache/
+uv.lock
+
+# OS/editor
+.DS_Store
+*.log
+
+# Env files
+.env
+.env.*
+
+# Node (if any)
+node_modules/
+
+# Large local data (exclude to keep image small)
+checkpoints/
