@@ -193,16 +193,27 @@ docker run --gpus all --rm -e GRADIO_SHARE=1 -p 7860:7860 --shm-size=2g maxme123
 
 ---
 
+### Build locally (this repository)
+
 ```bash
-git clone https://github.com/Zyphra/Zonos.git
-cd Zonos
+docker build -t maxme123/zonos-hebrew:latest .
+docker run --gpus all --rm -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
+```
 
-# For gradio
-docker compose up
+### Docker Compose (optional)
 
-# Or for development you can do
-docker build -t zonos .
-docker run -it --gpus=all --net=host -v /path/to/Zonos:/Zonos -t zonos
-cd /Zonos
-python sample.py # this will generate a sample.wav in /Zonos
+```bash
+docker compose up       # uses the included docker-compose.yml
+# or
+docker compose up -d    # run detached
+```
+
+### GPU prerequisites
+
+- Install NVIDIA drivers and nvidia-container-toolkit
+- Verify GPU visibility:
+
+```bash
+nvidia-smi
+docker run --gpus all --rm nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04 nvidia-smi
 ```
