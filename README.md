@@ -172,6 +172,27 @@ uv run sample.py
 
 ## Docker installation
 
+### Prebuilt image (Docker Hub)
+
+Use the prebuilt image from Docker Hub:
+
+```bash
+docker pull maxme123/zonos-hebrew:latest
+
+# Run with GPU and expose Gradio on port 7860
+docker run --gpus all --rm -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
+```
+
+- Gradio UI: http://localhost:7860
+- Default textbox text is set to "שלום לכולם".
+- Optional public link:
+
+```bash
+docker run --gpus all --rm -e GRADIO_SHARE=1 -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
+```
+
+---
+
 ```bash
 git clone https://github.com/Zyphra/Zonos.git
 cd Zonos
