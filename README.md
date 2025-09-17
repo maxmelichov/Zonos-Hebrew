@@ -52,6 +52,54 @@ Perfect for quick experiments or sharing with others who want to try the model w
 
 ---
 
+## Docker installation
+
+### Prebuilt image (Docker Hub)
+
+Use the prebuilt image from Docker Hub:
+
+```bash
+docker pull maxme123/zonos-hebrew:latest
+
+# Run with GPU and expose Gradio on port 7860
+docker run --gpus all --rm -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
+```
+
+- Gradio UI: http://localhost:7860
+- Default textbox text is set to "שלום לכולם".
+- Optional public link:
+
+```bash
+docker run --gpus all --rm -e GRADIO_SHARE=1 -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
+```
+
+---
+
+### Build locally (this repository)
+
+```bash
+docker build -t maxme123/zonos-hebrew:latest .
+docker run --gpus all --rm -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
+```
+
+### Docker Compose (optional)
+
+```bash
+docker compose up       # uses the included docker-compose.yml
+# or
+docker compose up -d    # run detached
+```
+
+### GPU prerequisites
+
+- Install NVIDIA drivers and nvidia-container-toolkit
+- Verify GPU visibility:
+
+```bash
+nvidia-smi
+docker run --gpus all --rm nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04 nvidia-smi
+```
+
 Zonos follows a straightforward architecture: text normalization and phonemization via eSpeak, followed by DAC token prediction through a transformer or hybrid backbone. An overview of the architecture can be seen below.
 
 <div align="center">
@@ -171,49 +219,3 @@ uv run sample.py
 ```
 
 ## Docker installation
-
-### Prebuilt image (Docker Hub)
-
-Use the prebuilt image from Docker Hub:
-
-```bash
-docker pull maxme123/zonos-hebrew:latest
-
-# Run with GPU and expose Gradio on port 7860
-docker run --gpus all --rm -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
-```
-
-- Gradio UI: http://localhost:7860
-- Default textbox text is set to "שלום לכולם".
-- Optional public link:
-
-```bash
-docker run --gpus all --rm -e GRADIO_SHARE=1 -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
-```
-
----
-
-### Build locally (this repository)
-
-```bash
-docker build -t maxme123/zonos-hebrew:latest .
-docker run --gpus all --rm -p 7860:7860 --shm-size=2g maxme123/zonos-hebrew:latest
-```
-
-### Docker Compose (optional)
-
-```bash
-docker compose up       # uses the included docker-compose.yml
-# or
-docker compose up -d    # run detached
-```
-
-### GPU prerequisites
-
-- Install NVIDIA drivers and nvidia-container-toolkit
-- Verify GPU visibility:
-
-```bash
-nvidia-smi
-docker run --gpus all --rm nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04 nvidia-smi
-```
