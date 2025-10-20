@@ -14,6 +14,34 @@
   </a>
 </div>
 
+## Quick Start
+
+To use:
+
+1. **Install uv** (if not already installed):
+   ```bash
+   pip install -U uv
+   ```
+
+2. **Clone and setup**:
+   ```bash
+   git clone https://github.com/notmax123/Zonos-Hebrew.git
+   cd Zonos-Hebrew
+   uv sync --extra compile
+   ```
+
+3. **Run the Gradio interface**:
+   ```bash
+   uv run gradio_interface.py
+   ```
+
+4. **Or run a quick test**:
+   ```bash
+   uv run sample.py
+   ```
+
+The Gradio interface will be available at `http://localhost:7860` with Hebrew text "שלום לכולם" pre-filled.
+
 ---
 
 Zonos-v0.1 is a leading open-weight text-to-speech model trained on more than 200k hours of varied multilingual speech, delivering expressiveness and quality on par with—or even surpassing—top TTS providers.
