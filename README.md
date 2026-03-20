@@ -236,6 +236,15 @@ uv pip install -e .[compile] # optional but needed to run the hybrid
 pip install -e .
 pip install --no-build-isolation -e .[compile] # optional but needed to run the hybrid
 ```
+##### Confirm that it's working
+
+For convenience we provide a minimal example to check that the installation works:
+
+```bash
+uv run sample.py
+# python sample.py
+```
+
 
 ## Ethical Use & Disclaimer
 [!IMPORTANT]
@@ -247,13 +256,4 @@ Responsibility: The author(s) of Mamre Hebrew TTS assume no responsibility for a
 
 Compliance: Ensure your use of this software complies with your local laws and the terms of service of any platform where the audio is shared.
 
-##### Confirm that it's working
 
-For convenience we provide a minimal example to check that the installation works:
-
-```bash
-uv run sample.py
-# python sample.py
-```
-
-## Docker installation
