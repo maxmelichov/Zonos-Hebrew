@@ -237,6 +237,16 @@ pip install -e .
 pip install --no-build-isolation -e .[compile] # optional but needed to run the hybrid
 ```
 
+## Ethical Use & Disclaimer
+[!IMPORTANT]
+This project includes a zero-shot voice cloning feature. By using this software, you agree to the following:
+
+Prohibited Use: You may not use this tool to impersonate individuals or create content using the voice of a person without their express, informed consent.
+
+Responsibility: The author(s) of Mamre Hebrew TTS assume no responsibility for any misuse of this technology. Users are solely responsible for any legal, ethical, or social consequences resulting from the generated audio.
+
+Compliance: Ensure your use of this software complies with your local laws and the terms of service of any platform where the audio is shared.
+
 ##### Confirm that it's working
 
 For convenience we provide a minimal example to check that the installation works:
